@@ -62,13 +62,11 @@ const getBirthDay = (birthDay: Date) => {
 };
 interface IProps {
   item: IProfile | any;
-  page: number | undefined;
 }
-const Cat = ({ item, page }: IProps) => {
+const Cat = ({ item }: IProps) => {
   // console.log(item,page);
   return (
     <FeedContent photo={item.photo}>
-      <Label>현재 페이지 : {page}</Label>
       <figcaption>
         <Label>{item.profileIdx} </Label>
         <p>

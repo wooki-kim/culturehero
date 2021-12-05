@@ -1,23 +1,10 @@
 import type { NextPage, GetStaticProps } from "next";
-import React, {
-  FormEvent,
-  useEffect,
-  useState,
-  useRef,
-  useLayoutEffect,
-} from "react";
+import React from "react";
 import Head from "next/head";
 import { Feed } from "../components";
 import { Main } from "../styles/common";
-import { IFeedList, IProfile } from "../types";
 
-interface IProps {
-  data: {
-    feedList: IFeedList;
-  };
-}
-
-const Home = ({ data }: IProps) => {
+const Home = () => {
   return (
     <>
       <Head>
@@ -31,6 +18,5 @@ const Home = ({ data }: IProps) => {
     </>
   );
 };
-
 
 export default Home;

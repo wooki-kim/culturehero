@@ -10,8 +10,8 @@ export default function userHandler(req: NextApiRequest, res: NextApiResponse) {
   switch (method) {
     case "GET":
       const MAX = 10;
-      const TEST_NUMBER = 14;
-      const dummy = new Array(TEST_NUMBER).fill(Profile);
+      const TEST_NUMBER = 53;
+      const dummy = new Array(53).fill(Profile);
       const feedList: IProfile[] = dummy.map((item, key) => ({
         ...item,
         profileIdx: key + 1,
@@ -23,7 +23,6 @@ export default function userHandler(req: NextApiRequest, res: NextApiResponse) {
          result = feedList.slice(0, page * MAX);
       }else{
         result = feedList.slice((page * MAX)- MAX, page * MAX);
-        console.log("확인",(page * MAX) - MAX, page * MAX);
         if(result.length==0){
           res.status(404).end();
           break;          

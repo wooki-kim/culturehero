@@ -30,7 +30,7 @@ const Detail = ({
   return (
     <Main>
       <Contianer>
-        <Cat item={data} page="1" />
+        <Cat item={data} />
       </Contianer>
     </Main>
   );

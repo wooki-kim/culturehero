@@ -27,11 +27,8 @@ const Feed = () => {
   const [page, setPage] = useState<number>(1);
   const [isTabnavOn, setIsTabnavOn] = useState<boolean>(true);
   const { data, error, isLoading } = useGetFeedListQuery(String(page));
-
-  const [loading, setLoading] = useState(false);
-  const [items, setItems] = useState<IProfile[] | undefined>([]);
+  const [items, setItems] = useState<IProfile[]>([]);
   const tabSelectorRef = useRef(null);
-  const [position, setPosition] = useState<number>(0);
 
   useEffect(() => {
     try {
@@ -46,27 +43,10 @@ const Feed = () => {
     }
   }, []);
   useEffect(() => {
-    console.log("로딩", data, "페이지", page);
     if (!isLoading && data != undefined) {
-      // console.log(items);
       setItems(items?.concat(data));
     }
   }, [data]);
-
-  useEffect(() => {
-    console.log("결과", items);
-  }, [items]);
-
-  // useState(() => {
-  //   console.log("데이터 로딩", isLoading,data,items);
-  //   if (!isLoading && !error && error!=undefined){
-  //     setItems(items.concat(data));
-  //     console.log("로딩");
-  //   }
-  // }, [isLoading]);
-
-  // setPage((prevState) => prevState + 1);
-  // setItems(items.concat(data));
 
   const throttledScroll = useMemo(
     () =>
@@ -76,10 +56,7 @@ const Feed = () => {
           window.scrollY === document.body.scrollHeight - window.innerHeight;
         if (nextTabnavOn) {
           setIsTabnavOn(!nextTabnavOn);
-          setLoading(true);
           setPage((prevState) => prevState + 1);
-        } else {
-          setLoading(false);
         }
       }, 200),
     [isTabnavOn]
@@ -94,10 +71,8 @@ const Feed = () => {
 
   const router = useRouter();
   const handleClick = (path: string) => {
-    // console.log(path);
-    // console.log(window.scrollY, page);
-    // localStorage.setItem("scroll", String(window.scrollY));
-    // localStorage.setItem("page", String(page));
+    localStorage.setItem("scroll", String(window.scrollY));
+    localStorage.setItem("page", String(page));
     router.push(path);
   };
   if (error) {
@@ -109,7 +84,7 @@ const Feed = () => {
       <ul ref={tabSelectorRef}>
         {items?.map((item, key) => (
           <FeedContianer key={key} id={"feed" + (key + 1)}>
-            <Cat item={item} page={page} />
+            <Cat item={item} />
             <FunctionContainer>
               <ExitButton onClick={() => alert("닫기")}>X</ExitButton>
               <LikeButton
